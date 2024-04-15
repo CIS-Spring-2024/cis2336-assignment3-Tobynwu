@@ -20,7 +20,10 @@
         </div>
         <div class="menu">
             <nav id="menu_cat"></nav>
-            <section id="menu_item"></section>
+            <form id="orderForm" onsubmit="return validateOrder(event)">
+                <div id="menu_item"></div>
+                <button type="submit">Place Order</button>
+            </form>
         </div>
     </div>
     <footer>
