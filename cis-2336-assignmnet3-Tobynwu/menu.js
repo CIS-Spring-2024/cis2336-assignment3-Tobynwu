@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="Pictures/${item.image}" alt="${item.name}">
                     <p>${item.description}</p>
                     <span>${item.price}</span>
-                    <label>Qty: <input type="number" name="${item.name}" min="1" max="10" value="1"></label>
+                    <label>Qty: <input type="number" name="${item.name}" min="0" max="10" value="0"></label>
                 </div>
             `;
             menuItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let valid = true;
         const inputs = document.querySelectorAll('#orderForm input[type="number"]');
         inputs.forEach(input => {
-            if (input.value < 1 || input.value > 10) {
+            if (input.value < 0 || input.value > 10) {
                 alert(`Please enter a valid quantity for ${input.name}`);
                 valid = false;
             }
