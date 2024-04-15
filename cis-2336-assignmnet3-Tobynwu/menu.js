@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuItems = [
         {
@@ -7,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: 'Roman Salad',
                     description: 'Fresh tomatoes, mozzarella, basil, and balsamic glaze.',
                     price: '$5.99',
-                    image: 'salad.jpg' 
+                    image: 'salad.jpg'
                 },
                 {
                     name: 'Breadsticks',
                     description: 'Warm crunchy breadsticks',
                     price: '$6.50',
-                    image: "breadsticks.jpg"
+                    image: 'breadsticks.jpg'
                 }
             ]
         },
         {
-            category: 'Lunches ',
+            category: 'Lunches',
             items: [
                 {
                     name: 'Classic Burger',
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: 'Pasta',
                     description: 'Creamy pasta made ready to eat',
                     price: '$15.99',
-                    image: 'pasta.jpg' 
+                    image: 'pasta.jpg'
                 }
             ]
         },
@@ -39,33 +40,30 @@ document.addEventListener('DOMContentLoaded', () => {
             items: [
                 {
                     name: 'Chocolate Chip Cookie',
-                    description: 'Chocolate Chip Cookie freshly baked',
+                    description: 'Freshly baked chocolate chip cookies',
                     price: '$1.00 per cookie',
                     image: 'choccookie.jpg'
                 },
                 {
                     name: 'Chocolate Ice Cream',
-                    description: 'Chocolate Ice Cream right from the freezer',
+                    description: 'Chocolate ice cream right from the freezer',
                     price: '$2.00',
                     image: 'icecream.jpg'
                 }
             ]
         }
-
     ];
 
     const categoriesContainer = document.getElementById('menu_cat');
     const menuItemsContainer = document.getElementById('menu_item');
 
     function displayMenuCategories(categories) {
-        categoriesContainer.innerHTML = ''; 
-
+        categoriesContainer.innerHTML = '';
         categories.forEach((category, index) => {
             const button = document.createElement('button');
             button.textContent = category.category;
             button.addEventListener('click', () => displayMenuItems(category.items));
             categoriesContainer.appendChild(button);
-
             if (index === 0) {
                 displayMenuItems(category.items);
             }
@@ -73,19 +71,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayMenuItems(items) {
-        menuItemsContainer.innerHTML = ''; 
-
+        menuItemsContainer.innerHTML = '';
         items.forEach(item => {
             const itemHtml = `
-                <article class="menu-item">
+                <div class="menu-item">
                     <h2>${item.name}</h2>
                     <img src="Pictures/${item.image}" alt="${item.name}">
                     <p>${item.description}</p>
                     <span>${item.price}</span>
-                </article>
+                    <label>Qty: <input type="number" name="${item.name}" min="1" max="10" value="1"></label>
+                </div>
             `;
             menuItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
         });
+    }
+
+    function validateOrder(event) {
+        event.preventDefault();
+        let valid = true;
+        const inputs = document.querySelectorAll('#orderForm input[type="number"]');
+        inputs.forEach(input => {
+            if (input.value < 1 || input.value > 10) {
+                alert(`Please enter a valid quantity for ${input.name}`);
+                valid = false;
+            }
+        });
+        if (valid) {
+            console.log('Order placed successfully!');
+        }
+        return false;
     }
 
     displayMenuCategories(menuItems);
